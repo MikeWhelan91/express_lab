@@ -1,6 +1,12 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const express = require('express')
+const app = express()
+const port = 3000
+const path = require('path');
+const bodyParser = require('body-parser');
+
+
+
+
 
 app.get('/', (_req, res) => res.send('Welcome to Data Representation & Querying!'));
 
@@ -11,9 +17,11 @@ app.get('/hello/:name', (req, res) => {
 	res.send('Hello ' + req.params.name);
 });
 
-app.get('/test', (req, res) => {res.sendFile(path.join(__dirname +'/index.html'));});
+app.get('/test', (req, res) => {
+	res.sendFile(path.join(__dirname + '/index.html'));
+});
 
-app.get('/api/movies', (req, res, next) => {
+app.get('/api/movies', (req, res) => {
 	const movies = [
 		{
 			Title: 'Avengers: Infinity War',
@@ -27,6 +35,21 @@ app.get('/api/movies', (req, res, next) => {
 		}
 	];
 	res.status(200).json({ message: 'Posts fetched succesfully!', movies: movies });
+});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.post('/name', (req, res) => {
+	console.log('post method');
+	console.log(req.body.firstname);
+	res.send('Hello' + req.body.firstname + ' ' + req.body.lastname);
+});
+
+app.get('/name', (req, res) => {
+	console.log('route method');
+	console.log(req.query.firstname);
+	res.send('Hello' + req.query.firstname + ' ' + req.query.lastname);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
