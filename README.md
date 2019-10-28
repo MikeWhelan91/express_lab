@@ -1,0 +1,1 @@
+Express is a minimal and flexible Node.js web application frameworkthat provides a robust set of features to develop web and mobileapplications. It facilitates the rapid development of Node basedWeb applications.
